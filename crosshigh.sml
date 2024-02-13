@@ -2,7 +2,11 @@
 (* List operator @ allowed *)
 
 fun crossHigh a b = 
-
+        let 
+                fun crossWithX x = map(fn y => (x,y)) b
+        in 
+                foldr op@ [] (map crossWithX a)
+        end;
 
 fun printPair (x, y) = print("("^Int.toString(x)^","^Int.toString(y)^") ")
 

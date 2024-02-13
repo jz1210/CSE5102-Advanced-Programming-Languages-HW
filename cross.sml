@@ -1,5 +1,14 @@
 (* Implement cross using list pattern matching and reursion*)
-fun cross nil     b = 
+fun cross nil b = nil
+        | cross b nil = nil
+        | cross (x::xs) b  = 
+                let     
+                        fun crossWithY y = (x,y)
+                        fun groupTogether nil ls = ls
+                                |  groupTogether (y::ys) ls =   groupTogether ys (ls @ [crossWithY y])
+                                in 
+                                        groupTogether b [] @ cross xs b
+                end;
 
 
 fun printPair (x, y) = print("("^Int.toString(x)^","^Int.toString(y)^") ")
