@@ -1,5 +1,12 @@
 (* Implement qsHigh using foldr *)
-fun qsHigh nil    = 
+fun qsHigh nil    = nil
+        |  qsHigh (x::xs) = 
+                let 
+                        val (small, big) = foldr (fn (pivot, (l, r)) => if pivot < x then (pivot::l, r) else (l, pivot::r)) ([], []) xs
+                in 
+                        qsHigh small @ (x :: qsHigh big)
+                end;
+                
 
 
 fun printList x = if null x then print("\n")

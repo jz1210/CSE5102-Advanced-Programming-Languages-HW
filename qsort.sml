@@ -1,5 +1,25 @@
+(* Helper function *)
+
+fun partition (pivot,nil) = (nil, nil)  
+        | partition (pivot,x::xs) = 
+                let     
+                        val (small, big) =  partition(pivot, xs)
+                in      
+                        if x < pivot
+                        then (x::small, big)
+                        else (small, x::big)
+                end;
+
 (* Implement qSort *)
-fun qSort nil    = 
+fun qSort nil = nil
+        |qSort l = 
+                let 
+                        val pivot = hd l
+                        val rest = tl l 
+                        val (small, big) = partition (pivot, rest)
+                in 
+                        qSort(small) @ pivot::qSort(big)
+                end;
 
 
 fun printList x = if null x then print("\n")
