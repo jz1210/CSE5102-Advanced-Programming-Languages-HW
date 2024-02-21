@@ -14,9 +14,12 @@ fun take 0 stream = nil
 	| take n (Cons(h,t)) = h::(take (n-1) (t()));
 
 (* implement function mul *)
-fun mul Nil b =  Nil
-   | mul a Nil = Nil
-   | mul (Cons(a:real,fa)) (Cons(b:real,fb)) = Cons(a * b, fn() => mul (fa()) (fb()));
+fun mul a = fn b =>
+      case (a, b) of
+         (Nil, _) => Nil
+         | (_, Nil) => Nil
+         | (Cons(a:real,fa), Cons(b:real,fb)) => Cons(a * b, fn() => mul (fa()) (fb()))
+
 
 fun printRealList x = if null x then print("\n")
         else (print(Real.toString((hd x))^" "); printRealList (tl x));
